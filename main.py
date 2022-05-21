@@ -41,7 +41,6 @@ if __name__ == '__main__':
                interfaz.analis_datos()
           elif respusta_menu==0:
                interfaz.settings()     
-          
           else:
                print("Error: pongase en contacto con el desarrollador")
                quit()
@@ -49,6 +48,7 @@ if __name__ == '__main__':
           continua=input("\n\nDesea realizar otro análisis? \nSi desea realizar otro análisis escriba:SI\n")
           if  str.upper(continua)!="SI":
                program_bool=False
+               print("Programa finalizo.")
 
 
 

@@ -70,10 +70,10 @@ def seleccionar_menu():
 
     No requiere parametros
     """
-    respuesta_counter_menu=0
+    respuesta_counter_menu=1
     respuesta_bool_menu=True
     while respuesta_bool_menu:
-        if respuesta_counter_menu==3: quit()
+   
         try:
             respuesta_menu=int(input("¿Qué análisis quiere realizar?:"))
         except:
@@ -82,6 +82,9 @@ def seleccionar_menu():
         print("\n")
         if 0 <=respuesta_menu <6:
             return respuesta_menu
+        elif respuesta_menu==9 or respuesta_counter_menu==3:
+            print("Programa finalizo.")
+            quit()
         else:
             print("La respuesta ingresada es incorrecta. Ingrese un nunero entre 1 y 5 o 0:")
 
@@ -180,6 +183,7 @@ def punto_liquidacion():
     print("Con un nivel de apalancamiento de :    ",trade_leverage)
     print("El punto de liquidacion aproximado es: ", "{}".format(redondear_numero(punto_de_liquidacion)))
    
+    return punto_de_liquidacion
 #FIN DE punto_liquidacion
 
 
@@ -281,6 +285,9 @@ def open_ticker():
         print("El valor HL2  medio es de:       {:.{}f}".format(media_hl2,decimals))
         print("El valor hlc3  medio es de:      {:.{}f}".format(media_hlc3,decimals))
 
+        list_activo_analisis=[max_val["high"],min_val["low"],media_mobil,media_hl2,media_hlc3]
+        return list_activo_analisis
+
     except ValueError:
         print("Error: on reading file, please reach to support@generala.eth")
 
@@ -359,7 +366,7 @@ def fibonacci_levels():
             fib_61_ext=min_fib+(val_ext_fib_61*range_fib)
             fib_78_ext=min_fib+(val_ext_fib_78*range_fib)
             
-        
+            lista_fib=[[fib_23_ret,fib_38_ret,fib_61_ret,fib_78_ret],[fib_23_ext,fib_38_ext,fib_61_ext,fib_78_ext]]
             
             print("{:<10} {:<10} {:<10} {:<10}".format('RETROCESO','','EXTENSION',''))
             print("{:<10} {:<10} {:<10} {:<10}".format('%','Retroceso','%','Extension'))    
@@ -370,13 +377,13 @@ def fibonacci_levels():
             
             
             bool_fib=False
-
+            return lista_fib
 
             #Cada tipo de mercado tiene un calculo diferente
             "Aqui se realiza el calculo para el mercado Bajista "
         elif mercado_fib==2 and max_fib > min_fib:
             fib_78_ret=min_fib+(val_ret_fib_78*range_fib)
-            fib_61_ret=min_fib+(val_ret_fib_61*range_fib)
+            fib_78_ret=min_fib+(val_ret_fib_61*range_fib)
             fib_38_ret=min_fib+(val_ret_fib_38*range_fib)
             fib_23_ret=min_fib+(val_ret_fib_23*range_fib)
 
@@ -385,6 +392,7 @@ def fibonacci_levels():
             fib_38_ext=max_fib-(val_ext_fib_38*range_fib)
             fib_23_ext=max_fib-(val_ext_fib_23*range_fib)
 
+            lista_fib=[[fib_78_ret,fib_78_ret,fib_38_ret,fib_23_ret],[fib_78_ext,fib_61_ext,fib_38_ext,fib_23_ext]]
 
             print("{:<10} {:<10} {:<10} {:<10}".format('RETROCESO','','EXTENSION',''))
             print("{:<10} {:<10} {:<10} {:<10}".format('%','Retroceso','%','Extension'))    
@@ -393,6 +401,9 @@ def fibonacci_levels():
             print("{:<10.{}f} {:<10.{}f} {:<10.{}f} {:<10.{}f}".format(val_ret_fib_38,3,fib_38_ret,decimals,val_ext_fib_38,3,fib_38_ext,decimals))
             print("{:<10.{}f} {:<10.{}f} {:<10.{}f} {:<10.{}f}".format(val_ret_fib_23,3,fib_23_ret,decimals,val_ext_fib_23,3,fib_23_ext,decimals))
             bool_fib=False
+
+            return lista_fib
+
         else:
             print("Alguna de las variables ingresadas es incorrecta")
             print("Respuestas validas (1,2):\n")
@@ -487,6 +498,8 @@ def ris_rew_ratio():
                 print("Este resultado muestra:\nQue el {}% de todas las transacciones deben ser ganadoras para que sea rentable.".format(redondear_numero(breakeven_factor)))
                 print("Por cada unidad monetaria arriesgada, espera ganar {} unidades.".format(redondear_numero(rew_avr_factor)))
 
+                return rew_avr_factor, breakeven_factor
+
             elif trade_type=="CORTA/SHORT":
 
                 while bool_ris_rew: 
@@ -534,6 +547,9 @@ def ris_rew_ratio():
 
                 print("Este resultado muestra:\nQue el {}% de todas las transacciones deben ser ganadoras para que sea rentable.".format(redondear_numero(breakeven_factor)))
                 print("\nPor cada unidad monetaria arriesgada, espera ganar {} unidades.".format(redondear_numero(rew_avr_factor)))
+
+                return rew_avr_factor, breakeven_factor
+
 
         except:
             if counter_ris_rew==3: 
@@ -722,6 +738,11 @@ def analis_datos():
         print("La covarianza es de: ",redondear_numero(covarianza*100)," %")
         
         print("Existe una correlacion de: ",redondear_numero(correlacion*100)," %")
+
+
+        return redondear_numero(correlacion*100)
+
+        
     except ValueError:
         print("Error: on reading file, please reach to support@generala.eth")
         

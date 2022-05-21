@@ -42,7 +42,9 @@ def print_main_menu():
 
     5.       Análisis para un activo financiero de: (Rendimiento, Rendimiento Medio Riesgo)
 
-    0.       Para configuración
+    0.       Configuración
+
+    9.       El programa finalizara
     """
 )
 
