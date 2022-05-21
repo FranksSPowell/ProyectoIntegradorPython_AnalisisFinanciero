@@ -96,6 +96,17 @@ Adicionalmente podemos encontrar el archivo grafico. Donde encontraremos funcion
 
 
 
+Para el correcto funcionamiento se importaron los siguientes modulos
+
+from os import listdir
+from os.path import isfile, join
+import graficos
+import os
+import csv
+import math
+import shutil
+
+![image](https://user-images.githubusercontent.com/101218360/169634140-9e68189c-37b1-4c55-a37e-4c4dacfd0fb7.png)
 
 
 
