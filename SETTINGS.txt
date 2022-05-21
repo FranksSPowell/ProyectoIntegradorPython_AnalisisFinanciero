@@ -1,0 +1,4 @@
+SETTINGS
+open,close,high,low
+5: OPEN
+5: N=2

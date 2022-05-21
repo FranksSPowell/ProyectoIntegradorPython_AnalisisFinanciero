@@ -1,0 +1,6 @@
+OPCION,NombreVariable,Valor,DetalleVariable,Valores1,Valores2,Valores3,Valores4
+Opcion1,RatioDeLiquidacion,0.0059,Tasa mínima del margen de mantenimiento para contrato
+Opcion2,Media,200,Valor de sesiones para el calculo de la media
+Opcion3,,,,
+Opcion4,TamañoGrafico,6,Tamaño del grafico de Relacion (recomendado de 6 a 10)
+Opcion5,referencia,close,Precio de referencia para el calculo de indicadores,open,close,high,low
