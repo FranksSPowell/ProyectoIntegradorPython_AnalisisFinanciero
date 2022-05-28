@@ -44,7 +44,7 @@ def print_main_menu():
 
     0.       Configuración
 
-    9.       El programa finalizara
+    9.       El programa finalizara 
     """
 )
 
