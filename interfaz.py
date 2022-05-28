@@ -325,33 +325,56 @@ def fibonacci_levels():
     val_ext_fib_61=1.5000
     val_ext_fib_78=1.272
 
+    mercado_fib=0
+    max_fib=0.0
+    min_fib=0.0
+
     while bool_fib:
-        try:
-            print("Indique si desea analizar un mercado\n 1) Alcista\n 2) Bajista:")
-            mercado_fib=int(input("Ingrese tipo de mercado:  "))
-            max_fib=float(input("Ingrese el valor Maximo: "))
-            min_fib=float(input("Ingrese el valor Minimo: "))
-            range_fib=max_fib-min_fib
-            decimals=fun_decimales(max_fib)
-            
-            graficos.print_word_RDF()
-            print("\n----------------------------------------------------------------\n")
+        print("Indique si desea analizar un mercado\n 1) Alcista\n 2) Bajista:")
+        while mercado_fib !=1 and mercado_fib !=2: 
+            try:
+                mercado_fib=int(input("Ingrese tipo de mercado:  "))
+                if mercado_fib !=1 and mercado_fib !=2:
+                    counter_fib+=1
+                if counter_fib==3: 
+                    print("Exedio el maximo de respuestas incorrectas.")
+                    quit()
+            except:
+                print("Las variable ingresada es incorrecta")
+                print("\nRespuestas validas 1 o 2\n")
+                counter_fib+=1
+                if counter_fib==3: 
+                    print("Exedio el maximo de respuestas incorrectas.")
+                    quit()
 
 
-        except:
-            print("Alguna de las variables ingresadas es incorrecta")
-            mercado_fib="x"
-            max_fib="x"
-            min_fib="x"
-            if mercado_fib==1 or mercado_fib==1: 
+        counter_fib=0
+        while max_fib<=min_fib or max_fib==0 and min_fib==0 :
+            try:
+                max_fib=float(input("Ingrese el valor Maximo: "))
+                min_fib=float(input("Ingrese el valor Minimo: "))
+                range_fib=max_fib-min_fib
+                decimals=fun_decimales(max_fib)
+                if  max_fib<=min_fib:
+                    print("Alguna de las variables ingresadas es incorrecta")
+                    print("El valor maximo siempre tiene que ser mayor al valor minimo")
+                    counter_fib+=1
+                if counter_fib==3: 
+                    print("Exedio el maximo de respuestas incorrectas.")
+                    quit()
+            except:
+                print("Alguna de las variables ingresadas es incorrecta")
                 print("El valor maximo siempre tiene que ser mayor al valor minimo")
-            else:
-                print("Tipo de mercado: opciones validas 1/2")
-            
-            print("\n----------------------------\n")
+                counter_fib+=1
+                if counter_fib==3: 
+                    print("Exedio el maximo de respuestas incorrectas.")
+                    quit()
+
+        print("\n----------------------------\n")
 
         
 
+        
         
         #Cada tipo de mercado tiene un calculo diferente
         "Aqui se realiza el calculo para el mercado Alcista "
@@ -368,6 +391,9 @@ def fibonacci_levels():
             
             lista_fib=[[fib_23_ret,fib_38_ret,fib_61_ret,fib_78_ret],[fib_23_ext,fib_38_ext,fib_61_ext,fib_78_ext]]
             
+            graficos.print_word_RDF()
+            print("\n----------------------------------------------------------------\n")
+
             print("{:<10} {:<10} {:<10} {:<10}".format('RETROCESO','','EXTENSION',''))
             print("{:<10} {:<10} {:<10} {:<10}".format('%','Retroceso','%','Extension'))    
             print("{:<10.{}f} {:<10.{}f} {:<10.{}f} {:<10.{}f}".format(val_ret_fib_23,3,fib_23_ret,decimals,val_ext_fib_23,3,fib_23_ext,decimals))
@@ -393,7 +419,9 @@ def fibonacci_levels():
             fib_23_ext=max_fib-(val_ext_fib_23*range_fib)
 
             lista_fib=[[fib_78_ret,fib_78_ret,fib_38_ret,fib_23_ret],[fib_78_ext,fib_61_ext,fib_38_ext,fib_23_ext]]
-
+            
+            graficos.print_word_RDF()
+            print("\n----------------------------------------------------------------\n")
             print("{:<10} {:<10} {:<10} {:<10}".format('RETROCESO','','EXTENSION',''))
             print("{:<10} {:<10} {:<10} {:<10}".format('%','Retroceso','%','Extension'))    
             print("{:<10.{}f} {:<10.{}f} {:<10.{}f} {:<10.{}f}".format(val_ret_fib_78,3,fib_78_ret,decimals,val_ext_fib_78,3,fib_78_ext,decimals))
@@ -433,7 +461,7 @@ def ris_rew_ratio():
 
     bool_ris_rew   =True
     counter_ris_rew=0
-
+    countr_posicion=0
     while bool_ris_rew:
         try:
             trade_type=input("Indique si desea analizar posición\n 1) Larga/Long \n 2) Corta/Short\nSu posición es: ")
@@ -444,25 +472,32 @@ def ris_rew_ratio():
               #Risk/Reward Ratio = (Entry Price – Stop Loss Price) / (Take Profit Price – Entry Price)
               #Risk/Reward Ratio = (Entry Price – Stop Loss Price) / (Take Profit Price – Entry Price)   
 
-            countr_posicion=0
+            
 
 
             
             if trade_type=="LARGA/LONG":
                 
                 while bool_ris_rew: 
-                    entry_factor      =float(input("Ingrese el valor de entrada:"))
-                    stopp_loss_factor =float(input("Ingrese el valor de Stop Loss/detener pérdidas:"))
-                    take_profit_factor=float(input("Ingrese el valor de Take Profit/Tomar ganancia:"))
+                    try:
+                        entry_factor      =float(input("Ingrese el valor de entrada:"))
+                        stopp_loss_factor =float(input("Ingrese el valor de Stop Loss/detener pérdidas:"))
+                        take_profit_factor=float(input("Ingrese el valor de Take Profit/Tomar ganancia:"))
 
-                    print("\n")
-                    if stopp_loss_factor < entry_factor < take_profit_factor: 
-                        bool_ris_rew=False
-                    else:
-                        print("El valor de entrada tiene que ser mayor al STOPP LOSS y menor al TAKE PROFIT")
-                        countr_posicion+=1
-                        if countr_posicion==3: print("Excedio el numero de respuesas invalidas"),quit()
-
+                        print("\n")
+                        if stopp_loss_factor < entry_factor < take_profit_factor: 
+                            bool_ris_rew=False
+                        else:
+                            print("El valor de ENTRADA tiene que ser mayor al STOPP LOSS y menor al TAKE PROFIT")
+                            countr_posicion+=1
+                            if countr_posicion>=3: 
+                                print("Excedio el numero de respuesas invalidas")
+                                quit()
+                    except:
+                        if countr_posicion>=3:  
+                            exit()
+                        print("La variable ingresada es incorrecta\n")
+                        counter_ris_rew+=1                        
 
 
 
@@ -503,17 +538,23 @@ def ris_rew_ratio():
             elif trade_type=="CORTA/SHORT":
 
                 while bool_ris_rew: 
-                    entry_factor=float(input("Ingrese el valor de entrada:"))
-                    stopp_loss_factor=float(input("Ingrese el valor de Stop Loss/detener pérdidas:"))
-                    take_profit_factor=float(input("Ingrese el valor de Take Profit/Tomar ganancia:"))
+                    try:
+                        entry_factor=float(input("Ingrese el valor de entrada:"))
+                        stopp_loss_factor=float(input("Ingrese el valor de Stop Loss/detener pérdidas:"))
+                        take_profit_factor=float(input("Ingrese el valor de Take Profit/Tomar ganancia:"))
 
-                    print("\n")
-                    if stopp_loss_factor > entry_factor > take_profit_factor: 
-                        bool_ris_rew=False
-                    else:
-                        print("El valor de entrada tiene que ser mayor al TAKE PROFIT y menor al STOPP LOSS ")
-                        countr_posicion+=1
-                        if countr_posicion==3: print("Excedio el numero de respuesas invalidas"),quit()
+                        print("\n")
+                        if stopp_loss_factor > entry_factor > take_profit_factor: 
+                            bool_ris_rew=False
+                        else:
+                            print("El valor de ENTRADA tiene que ser mayor al TAKE PROFIT y menor al STOPP LOSS ")
+                            countr_posicion+=1
+                            if countr_posicion>=3: print("Excedio el numero de respuesas invalidas"),quit()
+                    except:
+                        if countr_posicion>=3:  
+                            exit()
+                        print("La variable ingresada es incorrecta\n")
+                        counter_ris_rew+=1      
 
                 rew_factor=(entry_factor - take_profit_factor)      
                 risk_factor=(stopp_loss_factor - entry_factor)
@@ -550,19 +591,18 @@ def ris_rew_ratio():
 
                 return rew_avr_factor, breakeven_factor
 
+            else:
+
+                print("\nLa variable ingresada es incorrecta\n")
+                counter_ris_rew+=1
 
         except:
-            if counter_ris_rew==3: 
-                print("Exedio el maximo de respuestas incorrectas.")
-                quit()
-            print("La variable ingresada es incorrecta")
+            if counter_ris_rew>=2 or countr_posicion>=3:  
+                print("El programa finalizara ahora.")
+                exit()
+            print("La variable ingresada es incorrecta\n")
             counter_ris_rew+=1
 
-        if counter_ris_rew==3: 
-            print("Exedio el maximo de respuestas incorrectas.")
-            quit()
-        print("La variable ingresada es incorrecta")
-        counter_ris_rew+=1
     #FIN DE ris_rew_ratio()
 
 #OPCION 5---------------------------------------------------------------------------------
